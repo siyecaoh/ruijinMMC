@@ -99,7 +99,7 @@ if __name__ == '__main__':
     submit_dir = 'data/raw/submit/'
     #test(test_dir, submit_dir, model,word2idx, chunk_tags)
 
-    
-    txt_data =  'data/raw/local_test/152_6.txt'
-    tag_data =  'data/raw/local_test/152_6.ann'
+
+    txt_data = 'data/raw/ruijin_round1_train2_20181022/162_18.txt'
+    tag_data = 'data/raw/ruijin_round1_train2_20181022/162_18.ann'
     local_test(txt_data, tag_data,model, word2idx, chunk_tags)

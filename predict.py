@@ -94,15 +94,21 @@ if __name__ == '__main__':
     args = parser.parse_args()
     gpu_config(args.gpu)
 
+    args.num = 0
+    args.embed = 200
+    args.units = 200
+    args.gpu = 0
     # load model
     model_dir = 'expr/' + str(args.num) + '/model.h5'
     model, (word2idx, chunk_tags) = bilstm_crf_model.create_model(args.embed, args.units, train=False)
     model.load_weights(model_dir)
 
-    test_dir = 'data/raw/test/'
+    test_dir = 'data/raw/ruijin_round1_test_a_20181022/'
     submit_dir = 'data/raw/submit/'
-    # test(test_dir, submit_dir, model,word2idx, chunk_tags)
+    if os.path.exists(submit_dir) is False:
+        os.makedirs(submit_dir)
+    test(test_dir, submit_dir, model,word2idx, chunk_tags)
 
-    txt_data = 'data/raw/local_test/152_6.txt'
-    tag_data = 'data/raw/local_test/152_6.ann'
-    local_test(txt_data, tag_data, model, word2idx, chunk_tags)
+    # txt_data = 'data/raw/ruijin_round1_train2_20181022/162_18.txt'
+    # tag_data = 'data/raw/ruijin_round1_train2_20181022/162_18.ann'
+    # local_test(txt_data, tag_data, model, word2idx, chunk_tags)
