@@ -59,7 +59,8 @@ def get_train_data(data_dir, cv_ratio=0.1):
         os.remove(train_file)
 
     with open(train_file, 'a') as f:
-        for k in range(len(texts) - doc_dev_num):
+        # for k in range(len(texts) - doc_dev_num):
+        for k in range(len(texts)):
             text_ = texts[k]
             tag_ = tags[k]
             for p in range(len(text_)):
@@ -95,4 +96,4 @@ def get_train_data(data_dir, cv_ratio=0.1):
 
 
 if __name__ == '__main__':
-    train_num, dev_num = get_train_data(data_dir='data/raw/train/')
+    train_num, dev_num = get_train_data(data_dir='data/raw/ruijin_round1_train2_20181022/')
