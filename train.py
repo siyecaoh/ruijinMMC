@@ -46,8 +46,16 @@ if __name__ == '__main__':
     parser.add_argument('--gpu', type=int)
     parser.add_argument('--save', type=str)
     parser.add_argument('--batch', type=int, default=2)
-    
+
     args = parser.parse_args()
+    args.num = 0
+    args.gpu = 0
+
+    args.epoch = 200
+    args.batch = 64
+
+    args.embed = 200
+    args.units = 200
     gpu_config(args.gpu)
     
 
