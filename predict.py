@@ -83,6 +83,9 @@ def test(test_dir, submit_dir, model, word2idx, chunk_tags):
         result = [np.argmax(row) for row in raw]
         result_tags = [chunk_tags[i] for i in result]
         savefile(tag_data, result_tags, predict_text)
+        # predict_text 一个文件全部 文本    (str）
+        # tag data 写文件打开的句柄         (fp)
+        # 对每一个 字符的 预测             （list）
 
 
 if __name__ == '__main__':
