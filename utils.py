@@ -20,7 +20,7 @@ def gpu_config(gpu_num):
     print('GPU config done!')
 
 
-def get_train_data(data_dir, train_file, dev_file, cv_ratio=0.1):
+def get_train_data(data_dir, train_file, dev_file, cv_ratio=0.05):
     texts = []
     tags = []
 
@@ -58,15 +58,17 @@ def get_train_data(data_dir, train_file, dev_file, cv_ratio=0.1):
         os.remove(train_file)
 
     with open(train_file, 'a') as f:
-        # for k in range(len(texts) - doc_dev_num):
-        for k in range(len(texts)):
+        for k in range(len(texts) - doc_dev_num):
+        # for k in range(len(texts)):
             text_ = texts[k]
             tag_ = tags[k]
             for p in range(len(text_)):
                 if text_[p] == '\n':
-                    f.write('L' + '\t' + tag_[p] + '\n')
+                    # f.write('L' + '\t' + tag_[p] + '\n')
+                    pass
                 elif text_[p] == ' ':
-                    f.write('S' + '\t' + tag_[p] + '\n')
+                    # f.write('S' + '\t' + tag_[p] + '\n')
+                    pass
                 elif text_[p] in split_chars:
                     train_num += 1
                     f.write(text_[p] + '\t' + tag_[p] + '\n\n')
@@ -99,5 +101,5 @@ if __name__ == '__main__':
     train_num, dev_num = get_train_data(
         # data_dir='data/exp_data/',
         data_dir='data/raw/ruijin_round1_train2_20181022/',
-        train_file='data/exp_data/exp_train.data',
-        dev_file='data/exp_data/exp_dev.data')
+        train_file='data/ruijin_train.data',
+        dev_file='data/ruijin_dev.data')

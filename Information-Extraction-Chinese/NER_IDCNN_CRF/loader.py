@@ -48,9 +48,6 @@ def update_tag_scheme(sentences, tag_scheme):
     """
     for i, s in enumerate(sentences):
         tags = [w[-1] for w in s]
-        for t in tags:
-            if "I-Method" in t:
-                print(t)
         # Check that tags are given in the IOB format
         if not iob2(tags):
             s_str = '\n'.join(' '.join(w) for w in s)
@@ -66,9 +63,6 @@ def update_tag_scheme(sentences, tag_scheme):
                 word[-1] = new_tag
         else:
             raise Exception('Unknown tagging scheme!')
-        for t in tags:
-            if "reserve I-Method" in t:
-                print(t)
 
 
 def char_mapping(sentences, lower):

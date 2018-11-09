@@ -50,9 +50,9 @@ flags.DEFINE_string("emb_file",     os.path.join("data", "vec.txt"),  "Path for 
 # flags.DEFINE_string("dev_file",     os.path.join("data", "example.dev"),    "Path for dev data")
 # flags.DEFINE_string("test_file",    os.path.join("data", "example.test"),   "Path for test data")
 
-flags.DEFINE_string("train_file",   os.path.join("data", "exp_train.data"),  "Path for train data")
-flags.DEFINE_string("dev_file",     os.path.join("data", "exp_train.data"),    "Path for dev data")
-flags.DEFINE_string("test_file",    os.path.join("data", "exp_train.data"),   "Path for test data")
+flags.DEFINE_string("train_file",   os.path.join("../","../","data", "ruijin_train.data"),  "Path for train data")
+flags.DEFINE_string("dev_file",     os.path.join("../","../","data", "ruijin_dev.data"),    "Path for dev data")
+flags.DEFINE_string("test_file",    os.path.join("../","../","data", "ruijin_dev.data"),   "Path for test data")
 
 flags.DEFINE_string("model_type", "idcnn", "Model type, can be idcnn or bilstm")
 #flags.DEFINE_string("model_type", "bilstm", "Model type, can be idcnn or bilstm")
