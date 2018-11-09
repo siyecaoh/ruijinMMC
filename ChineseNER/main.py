@@ -19,22 +19,22 @@ flags = tf.app.flags
 flags.DEFINE_boolean("clean",       False,      "clean train folder")
 flags.DEFINE_boolean("train",       False,      "Wither train the model")
 # configurations for the model
-flags.DEFINE_integer("seg_dim",     20,         "Embedding size for segmentation, 0 if not used")
-flags.DEFINE_integer("char_dim",    100,        "Embedding size for characters")
-flags.DEFINE_integer("lstm_dim",    100,        "Num of hidden units in LSTM")
+flags.DEFINE_integer("seg_dim",     50,         "Embedding size for segmentation, 0 if not used")
+flags.DEFINE_integer("char_dim",    200,        "Embedding size for characters")
+flags.DEFINE_integer("lstm_dim",    200,        "Num of hidden units in LSTM")
 flags.DEFINE_string("tag_schema",   "iobes",    "tagging schema iobes or iob")
 
 # configurations for training
 flags.DEFINE_float("clip",          5,          "Gradient clip")
 flags.DEFINE_float("dropout",       0.5,        "Dropout rate")
-flags.DEFINE_float("batch_size",    20,         "batch size")
+flags.DEFINE_float("batch_size",    64,         "batch size")
 flags.DEFINE_float("lr",            0.001,      "Initial learning rate")
 flags.DEFINE_string("optimizer",    "adam",     "Optimizer for training")
 flags.DEFINE_boolean("pre_emb",     True,       "Wither use pre-trained embedding")
 flags.DEFINE_boolean("zeros",       False,      "Wither replace digits with zero")
 flags.DEFINE_boolean("lower",       True,       "Wither lower case")
 
-flags.DEFINE_integer("max_epoch",   100,        "maximum training epochs")
+flags.DEFINE_integer("max_epoch",   10000,        "maximum training epochs")
 flags.DEFINE_integer("steps_check", 100,        "steps per checkpoint")
 flags.DEFINE_string("ckpt_path",    "ckpt",      "Path to save model")
 flags.DEFINE_string("summary_path", "summary",      "Path to store summaries")
@@ -49,9 +49,9 @@ flags.DEFINE_string("emb_file",     "wiki_100.utf8", "Path for pre_trained embed
 # flags.DEFINE_string("dev_file",     os.path.join("data", "example.dev"),    "Path for dev data")
 # flags.DEFINE_string("test_file",    os.path.join("data", "example.test"),   "Path for test data")
 
-flags.DEFINE_string("train_file",   os.path.join("data", "ruijin_train.data"),  "Path for train data")
-flags.DEFINE_string("dev_file",     os.path.join("data", "ruijin_train.data"),    "Path for dev data")
-flags.DEFINE_string("test_file",    os.path.join("data", "ruijin_dev.data"),   "Path for test data")
+flags.DEFINE_string("train_file",   os.path.join("../","../","data", "ruijin_train.data"),  "Path for train data")
+flags.DEFINE_string("dev_file",     os.path.join("../","../","data", "ruijin_dev.data"),    "Path for dev data")
+flags.DEFINE_string("test_file",    os.path.join("../","../","data", "ruijin_dev.data"),   "Path for test data")
 
 
 FLAGS = tf.app.flags.FLAGS
@@ -175,7 +175,7 @@ def train():
         model = create_model(sess, Model, FLAGS.ckpt_path, load_word2vec, config, id_to_char, logger)
         logger.info("start training")
         loss = []
-        for i in range(100):
+        for i in range(10000):
             for batch in train_manager.iter_batch(shuffle=True):
                 step, batch_loss = model.run_step(sess, True, batch)
                 loss.append(batch_loss)
