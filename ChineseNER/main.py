@@ -50,7 +50,7 @@ flags.DEFINE_string("emb_file",     "wiki_100.utf8", "Path for pre_trained embed
 # flags.DEFINE_string("test_file",    os.path.join("data", "example.test"),   "Path for test data")
 
 flags.DEFINE_string("train_file",   os.path.join("data", "ruijin_train.data"),  "Path for train data")
-flags.DEFINE_string("dev_file",     os.path.join("data", "ruijin_dev.data"),    "Path for dev data")
+flags.DEFINE_string("dev_file",     os.path.join("data", "ruijin_train.data"),    "Path for dev data")
 flags.DEFINE_string("test_file",    os.path.join("data", "ruijin_dev.data"),   "Path for test data")
 
 
