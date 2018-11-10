@@ -79,8 +79,8 @@ def evaluate_line():
         for file in all_files:
             idx_cnt += 1
             if os.path.splitext(file)[1] == ".txt":
-                # if file != "127_13.txt":
-                #     continue
+                if file != "128_20_10.txt":
+                    continue
                 print(" processing {}  {} of {}".format(file, idx_cnt, all_num))
                 with open(os.path.join(test_file_path, file), 'rb') as f:
                     predict_text = ""
@@ -94,13 +94,21 @@ def evaluate_line():
                 num = 1
                 for ret in results['entities']:
                     content = ret['word']
+                    start = int(ret['start'])
+                    end = int(ret['end'])
+                    # if '顿服' in content:
+                    #     print(content)
+                    if predict_text[start] != content[0] or predict_text[end-1] != content[-1]:
+                        start_tmp =  predict_text[start-5:end+5].find(content)
+                        if start_tmp == -1 :
+                            continue
+                        start = start-5 + start_tmp
+                        end = start-5+ start_tmp + len(content)
                     if content.find('\n') != -1:
                         content = content.replace('\n', ' ')
-                    start = int(ret['start'])
                     if content[0] == ' ':
                         content = content[1:]
                         start = start + 1
-                    end = int(ret['end'])
                     prev = ret['type']
 
                     f_content = content
