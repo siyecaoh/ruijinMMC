@@ -79,8 +79,8 @@ def evaluate_line():
         for file in all_files:
             idx_cnt += 1
             if os.path.splitext(file)[1] == ".txt":
-                if file != "127_13.txt":
-                    continue
+                # if file != "127_13.txt":
+                #     continue
                 print(" processing {}  {} of {}".format(file, idx_cnt, all_num))
                 with open(os.path.join(test_file_path, file), 'rb') as f:
                     predict_text = ""
