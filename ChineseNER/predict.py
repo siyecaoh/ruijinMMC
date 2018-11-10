@@ -36,7 +36,7 @@ flags.DEFINE_boolean("lower", True, "Wither lower case")
 
 flags.DEFINE_integer("max_epoch", 10000, "maximum training epochs")
 flags.DEFINE_integer("steps_check", 100, "steps per checkpoint")
-flags.DEFINE_string("ckpt_path", "ckpt", "Path to save model")
+
 flags.DEFINE_string("summary_path", "summary", "Path to store summaries")
 flags.DEFINE_string("log_file", "train.log", "File for log")
 flags.DEFINE_string("map_file", "maps.pkl", "file for maps")
@@ -59,6 +59,8 @@ assert 0 <= FLAGS.dropout < 1, "dropout rate between 0 and 1"
 assert FLAGS.lr > 0, "learning rate must larger than zero"
 assert FLAGS.optimizer in ["adam", "sgd", "adagrad"]
 
+flags.DEFINE_string("ckpt_path", "ckpt", "Path to save model")
+
 
 def evaluate_line():
     config = load_config(FLAGS.config_file)
@@ -75,12 +77,12 @@ def evaluate_line():
         all_num = len(all_files)
         idx_cnt = 0
         for file in all_files:
-            idx_cnt +=1
+            idx_cnt += 1
             if os.path.splitext(file)[1] == ".txt":
                 if file != "127_13.txt":
                     continue
-                print(" processing {}  {} of {}".format(file,idx_cnt,all_num))
-                with open(os.path.join(test_file_path,file), 'rb') as f:
+                print(" processing {}  {} of {}".format(file, idx_cnt, all_num))
+                with open(os.path.join(test_file_path, file), 'rb') as f:
                     predict_text = ""
                     # for line in f.readlines():
                     #     line = line.decode('utf-8').strip("\n")
@@ -88,18 +90,16 @@ def evaluate_line():
                     #     predict_text += line
                     predict_text = f.read().decode('utf-8')
                 results = model.evaluate_line(sess, input_from_line(predict_text, char_to_id), id_to_tag)
-                tag_data = open(os.path.join(test_file_path,os.path.splitext(file)[0]+".ann"), 'w')
+                tag_data = open(os.path.join(test_file_path, os.path.splitext(file)[0] + ".ann"), 'w')
                 num = 1
                 for ret in results['entities']:
                     content = ret['word']
-                    # if content.find('\n') != -1:
-                    #     while content.find('\n') != -1:
-                    #         content = content.replace('\n','')
+                    if content.find('\n') != -1:
+                        content = content.replace('\n', ' ')
+                    start = int(ret['start'])
                     if content[0] == ' ':
                         content = content[1:]
-                        start = int(ret['start']) +1
-                    else:
-                        start = int(ret['start'])
+                        start = start + 1
                     end = int(ret['end'])
                     prev = ret['type']
 
@@ -109,9 +109,9 @@ def evaluate_line():
                         f_start = start
                         while f_content.find(' ') != -1:
                             idx = f_content.find(' ')
-                            num_str += str(f_start + idx)+";"+str(f_start + idx+1)+" "
-                            f_start += idx+1
-                            f_content=f_content[idx+1:]
+                            num_str += str(f_start + idx) + ";" + str(f_start + idx + 1) + " "
+                            f_start += idx + 1
+                            f_content = f_content[idx + 1:]
                         num_str += str(end)
                     else:
                         num_str = str(start) + ' ' + str(end)
