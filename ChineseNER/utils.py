@@ -161,8 +161,8 @@ def convert_to_text(line):
     return "".join(to_print)
 
 
-def save_model(sess, model, path, logger):
-    checkpoint_path = os.path.join(path, "ner.ckpt")
+def save_model(sess, model, path, logger,i,score):
+    checkpoint_path = os.path.join(path, "ner-{}-{}.ckpt".format(i,score))
     model.saver.save(sess, checkpoint_path)
     logger.info("model saved")
 
