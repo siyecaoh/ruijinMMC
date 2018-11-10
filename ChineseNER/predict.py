@@ -102,8 +102,8 @@ def evaluate_line():
                         start_tmp =  predict_text[start-5:end+5].find(content)
                         if start_tmp == -1 :
                             continue
+                        end = start - 5 + start_tmp + len(content)
                         start = start-5 + start_tmp
-                        end = start-5+ start_tmp + len(content)
                     if content.find('\n') != -1:
                         content = content.replace('\n', ' ')
                     if content[0] == ' ':
